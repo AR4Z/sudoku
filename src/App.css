@@ -22,10 +22,16 @@ td:nth-child(6) {
   border-right: 3px solid black;
 }
 
-td .active {
-  background-color: gray;
+
+
+tr.focus td input {
+  background-color: pink;
 }
 
-td .focus {
-  background-color: pink;
+input.focus {
+  background-color: pink !important;
+}
+
+input.active {
+  background-color: gray !important;
 }
