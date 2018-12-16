@@ -1,13 +1,16 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 type Props = {
   digit: number,
   row: number,
   column: number,
+  squareBlock: number,
+  active: boolean,
+  focus: boolean,
   changeActive: Function
-}
+};
 
 class Cell extends React.Component<Props> {
   render() {
@@ -20,7 +23,7 @@ class Cell extends React.Component<Props> {
         onClick={ () => {
           this.props.changeActive(this.props.column, this.props.row, this.props.squareBlock)
         } }/>
-    </td>
+    </td>;
   }
 }
 

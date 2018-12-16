@@ -1,22 +1,22 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 import Cell from './Cell';
 import Row from './Row';
 
 type State = {
   activeCell: {
-    column: number,
-    row: number
+    column: ?number,
+    row: ?number
   },
-  activeSquareBlock: number,
-  rows: Array<Cell>
-} 
+  activeSquareBlock: ?number,
+  rows: ?Array<React.Element<typeof Row>>
+};
 
 
-class Board extends React.Component<State> {
-  constructor(props) {
+class Board extends React.Component<{} , State> {
+  constructor(props: Object) {
     super(props);
 
     this.state = {
@@ -29,7 +29,7 @@ class Board extends React.Component<State> {
     };
   }
 
-  changeActive(activeCol, activeRow, activeSquareBlock) {
+  changeActive(activeCol: number, activeRow: number, activeSquareBlock: number): void {
     this.setState({
       activeCell: {
         column: activeCol,
@@ -40,10 +40,10 @@ class Board extends React.Component<State> {
     );
   }
 
-  generateRows() {
-    let rows = [];
-    let cells = [];
-    let squareBlock = 0;
+  generateRows(): void {
+    let rows: Array<React.Element<typeof Row>> = [];
+    let cells: Array<React.Element<typeof Cell>> = [];
+    let squareBlock: number = 0;
 
     for (let numRow = 0; numRow <= 8; numRow++) {
       cells = []
@@ -89,17 +89,17 @@ class Board extends React.Component<State> {
         </Cell>)
       }
 
-      const row = <Row cells={ cells } key={ numRow } focus={ this.state.activeCell.row === numRow }></Row>
-      rows.push(row); 
+      const row: React.Element<typeof Row> = <Row cells={ cells } key={ numRow } focus={ this.state.activeCell.row === numRow }></Row>
+      rows.push(row);
     }
 
     this.setState({
       rows: rows
-    })
+    });
   }
 
   componentDidMount() {
-    this.generateRows()
+    this.generateRows();
   }
 
   render() {
@@ -107,7 +107,7 @@ class Board extends React.Component<State> {
       <tbody>
         { this.state.rows }
       </tbody>
-    </table>
+    </table>;
   }
 }
 
