@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 type Props = {
-  digit: number,
+  digit: ?number,
   row: number,
   column: number,
   squareBlock: number,
@@ -12,17 +12,30 @@ type Props = {
   changeActive: Function
 };
 
-class Cell extends React.Component<Props> {
+type State = {
+  digit: ?number
+}
+
+class Cell extends React.Component<Props, State> {
+  constructor(props: Object) {
+    super(props);
+
+    this.state = {
+      digit: this.props.digit
+    }
+  }
   render() {
     return <td>
       <input
-        value={ this.props.digit }
+        value={ this.state.digit }
         style={ { width: '10px', border: '0px' } }
         className={ `${this.props.active ? 'active ': ''}${this.props.focus ? 'focus': ''}` }
         maxLength={1}
         onClick={ () => {
           this.props.changeActive(this.props.column, this.props.row, this.props.squareBlock)
-        } }/>
+        } }
+        onChange={(e) => this.setState({digit: e.target.value})}
+      />
     </td>;
   }
 }

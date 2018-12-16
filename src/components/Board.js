@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import Cell from './Cell';
 import Row from './Row';
+import { calculateSquareBlock } from '../common/utils';
 
 type State = {
   activeCell: {
@@ -44,48 +45,24 @@ class Board extends React.Component<{} , State> {
     let rows: Array<React.Element<typeof Row>> = [];
     let cells: Array<React.Element<typeof Cell>> = [];
     let squareBlock: number = 0;
+    const handleChangeActive = (col: number, row: number, activeSquareBlock: number): void => {
+      this.changeActive(col, row, activeSquareBlock)
+    }
 
     for (let numRow = 0; numRow <= 8; numRow++) {
       cells = []
-
       for(let numCol = 0; numCol <= 8; numCol++) {
-        squareBlock = 0;
-
-        if(numRow <= 2) {
-          if(numCol <= 2) {
-            squareBlock = 0;
-          } else if(numCol > 2 && numCol <= 5) {
-            squareBlock = 1;
-          } else {
-            squareBlock = 2;
-          }
-        } else if(numRow > 2 && numRow <= 5){
-          if(numCol <= 2) {
-            squareBlock = 3;
-          } else if(numCol > 2 && numCol <= 5) {
-            squareBlock = 4;
-          } else {
-            squareBlock = 5;
-          }
-        } else {
-          if(numCol <= 2) {
-            squareBlock = 6;
-          } else if(numCol > 2 && numCol <= 5) {
-            squareBlock = 7;
-          } else {
-            squareBlock = 8;
-          }
-        }
-
+        squareBlock = calculateSquareBlock(numCol, numRow);
+    
         cells.push(<Cell
+          key={ numCol }
           digit={1}
+          squareBlock={ calculateSquareBlock(numCol, numRow) }
           column={ numCol }
           row={ numRow }
-          key={ numCol }
           focus={ this.state.activeCell.column === numCol || this.state.activeSquareBlock === squareBlock }
-          squareBlock={ squareBlock }
           active={ this.state.activeCell.column === numCol && this.state.activeCell.row === numRow }
-          changeActive={(col, row, activeSquareBlock) => this.changeActive(col, row, activeSquareBlock)}>
+          changeActive={ handleChangeActive }>
         </Cell>)
       }
 
