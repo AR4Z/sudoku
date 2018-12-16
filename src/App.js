@@ -1,8 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-import Board from './Board.js';
 import './App.css';
+
+import Board from './Board';
 
 class App extends Component {
   render() {

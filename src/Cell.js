@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-
 type Props = {
   digit: number,
   row: number,
@@ -10,7 +9,7 @@ type Props = {
   changeActive: Function
 }
 
-class Cell extends React.Component<Props, State> {
+class Cell extends React.Component<Props> {
   render() {
     return <td>
       <input
@@ -19,7 +18,7 @@ class Cell extends React.Component<Props, State> {
         className={ `${this.props.active ? 'active ': ''}${this.props.focus ? 'focus': ''}` }
         maxLength={1}
         onClick={ () => {
-          this.props.changeActive(this.props.column, this.props.row)
+          this.props.changeActive(this.props.column, this.props.row, this.props.squareBlock)
         } }/>
     </td>
   }
